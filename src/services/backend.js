@@ -13,24 +13,16 @@ const PORT = process.env.PORT || 3000;
 
 async function initializeServer() {
     try {
-        // Prepare Next.js app first
         await nextApp.prepare();
-
-        // Create Express app
         const app = express();
-
-        // Middleware
         app.use(cors({ origin: "*" }));
         app.use(express.json());
-
-        // Connect to MongoDB
         const client = new MongoClient(connectionParameters.url);
         await client.connect();
         const db = client.db("karini_assessment");
         const collection = db.collection("all_products");
         const cartCollection = db.collection("cart");
 
-        // === Your Original API Routes (Keep exactly as is) ===
         app.get("/fetchAlldata", async (req, res) => {
             try {
                 const data = await collection.find({}).toArray();
@@ -107,15 +99,12 @@ async function initializeServer() {
             }
         });
 
-        // === Modified Next.js Handler (FIX for path-to-regexp error) ===
-        // Create a custom route handler that won't trigger path-to-regexp parsing
         app.use((req, res) => {
             return handle(req, res);
         });
 
-        // Start the server
         app.listen(PORT, () => {
-            console.log(`🚀 Server running at http://localhost:${PORT}`);
+            console.log("Server running at http://localhost:",PORT);
         });
 
     } catch (error) {
@@ -124,5 +113,4 @@ async function initializeServer() {
     }
 }
 
-// Start the server
 initializeServer();
