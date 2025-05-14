@@ -1,5 +1,5 @@
 export async function fetchAllData (){
-    const response = await fetch("http://localhost:5000/fetchAlldata",
+    const response = await fetch("/fetchAlldata",
         {
             method:"GET"
         }
@@ -7,7 +7,7 @@ export async function fetchAllData (){
     return await response.json();
 }
 export async function clearAllCartItems (){
-    const response = await fetch("http://localhost:5000/emptyCart",
+    const response = await fetch("/emptyCart",
         {
             method:"DELETE"
         }
@@ -15,7 +15,7 @@ export async function clearAllCartItems (){
     return await response.json();
 }
 export async function fetchSpecificData(searchQuery){
-    const response = await fetch('http://localhost:5000/searchInAllItems',{
+    const response = await fetch('/searchInAllItems',{
         method:"POST",
         headers:{
             "Content-Type": "application/json"
@@ -25,17 +25,17 @@ export async function fetchSpecificData(searchQuery){
     return response.json();
 }
 export async function addItemToCart(product){
-    return await fetch("http://localhost:5000/addItemToCart",{
+    return await fetch("/addItemToCart",{
         method:"POST",
         headers:{
-            "Content-Type":"Application/json"
+            "Content-Type":"application/json"
         },
         body: JSON.stringify({product})
     })
 }
 
 export async function removeItemFromCart(product){
-    return await fetch("http://localhost:5000/deleteFromCart",{
+    return await fetch("/deleteFromCart",{
         method:"POST",
         headers:{
             "Content-Type":"application/json"
@@ -45,7 +45,7 @@ export async function removeItemFromCart(product){
 }
 
 export async function fetchAllCartItems () {
-    const response = await fetch("http://localhost:5000/getCartItems",{
+    const response = await fetch("/getCartItems",{
         method:"GET"
     })
     return response.json()
