@@ -54,7 +54,6 @@ function Home (){
     }
     return (
         <div>
-
                 <div className="container mt-4">
                     <div className="bp5-input-group">
                         <span className="bp5-icon bp5-icon-search"></span>
