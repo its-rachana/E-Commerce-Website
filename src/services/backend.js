@@ -8,7 +8,8 @@ const connectionParameters = require("../config/database.config");
 const dev = process.env.NODE_ENV !== "production";
 const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler();
-
+const Stripe = require('stripe');
+const stripe = Stripe("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");
 const PORT = process.env.PORT || 3000;
 
 async function initializeServer() {
@@ -23,6 +24,20 @@ async function initializeServer() {
         const collection = db.collection("all_products");
         const cartCollection = db.collection("cart");
 
+        app.post('/retrieveKey', async (req, res) => {
+            const { amount } = req.body;
+
+            try {
+                const paymentIntent = await stripe.paymentIntents.create({
+                    amount,
+                    currency: 'usd',
+                });
+
+                res.send({ clientSecret: paymentIntent.client_secret });
+            } catch (err) {
+                res.status(500).send({ error: err.message });
+            }
+        });
         app.get("/fetchAlldata", async (req, res) => {
             try {
                 const data = await collection.find({}).toArray();

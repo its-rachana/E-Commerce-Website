@@ -1,3 +1,12 @@
+export async function retrieveSecretKeyFromBackend(){
+    const response = await fetch('/retrieveKey', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount: 5000 }), // Amount in cents ($50)
+    })
+    return await response.json();
+}
+
 export async function fetchAllData (){
     const response = await fetch("/fetchAlldata",
         {
