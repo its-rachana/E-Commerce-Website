@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AddressComponent from "../components/address";
 import {Card, Divider} from "@blueprintjs/core";
 import PaymentComponent from "@/components/payment";
+import RewardsComponent from "@/components/rewardsSection";
 export default function shipment(){
     return (
         <div className="container mt-4">
@@ -14,7 +15,9 @@ export default function shipment(){
             <div className={"row"}>
                 <div className={"col-4"}>
                     <AddressComponent/>
+                    <RewardsComponent/>
                     <PaymentComponent/>
+
                 </div>
                 <div className={"col-8"}>
                     <Card>
