@@ -1,80 +1,117 @@
-import React, {useState} from 'react';
-import {Divider, Radio, RadioGroup, Card, Collapse, Pre, Icon, Button} from "@blueprintjs/core";
-import '@blueprintjs/core/lib/css/blueprint.css';
+import React, { useState } from "react";
+import { Button, Card, Collapse, Divider, Radio, RadioGroup } from "@blueprintjs/core";
+import "@blueprintjs/core/lib/css/blueprint.css";
 
-const AddressComponent = () => {
-    const [selectedAddress, setSelectedAddress] = useState(null);
-    const [isAddressPanelOpen,setIsAddressPanelOpen] = useState(false);
-    const buttonStyle = {
-        backgroundColor: '#000000', // black
-        color: '#ffffff',
-        border: 'none',
-        borderRadius: '4px',
-        padding: '12px 16px',
-        fontSize: '16px',
-        fontWeight: '600',
-        cursor: 'pointer',
-        width: '100%',
-        marginTop: '20px',
-        transition: 'background-color 0.2s ease',
-        opacity: 1,
-    };
+const AddressComponent = ({
+                              setEditAddress,
+                              selectedAddress,
+                              setSelectedAddress,
+                              setIsDeliveryAddressSelected,
+                              setIsEditAddressPopupOpen,
+                          }) => {
+    const [isAddressPanelOpen, setIsAddressPanelOpen] = useState(true);
+    const [selectedAddressId,setSelectedAddressId] = useState("");
     const addresses = [
         {
             id: "one",
             name: "Kavya Angara",
-            address: "411 Dorsey Ln, Louisville, KY 40223",
-            phone: "+12345678900"
+            addressLine1: "411 Dorsey Ln",
+            dialcode:"+1",
+            state:"KY",
+            code3: "USA",
+            phone: "2345678900",
+            zipcode:"40223",
+            country:"United States",
+            addressLine2:"",
+            city:"Louisville",
         },
         {
             id: "two",
             name: "Ravi Kumar",
-            address: "123 Elm St, Phoenix, AZ 85001",
-            phone: "+19876543210"
+            addressLine1: "123 Elm St",
+            dialcode:"+1",
+            code3: "USA",
+            phone: "9876543210",
+            zipcode:"85001",
+            country:"United States",
+            state: "AZ",
+            addressLine2:"",
+            city:"Phoenix"
         },
     ];
-    const handleAddressPanel = () =>{
-        setIsAddressPanelOpen(!isAddressPanelOpen);
-    }
-    return (
-        <Card style={{paddingLeft: 10, paddingRight: 10, paddingTop: 10, paddingBottom: 10}}>
 
+    const handleDeliveryAddressChange = () => {
+        if (selectedAddressId) {
+            const selectedAddressObj = addresses.find((addr) => addr.id === selectedAddressId);
+            setSelectedAddress(selectedAddressObj)
+            setIsDeliveryAddressSelected(true);
+        }
+    };
+
+    const handleEditAddressFunctionality = (currentAddress) => {
+        setEditAddress(currentAddress)
+        setIsEditAddressPopupOpen(true);
+    };
+
+    return (
+        <Card style={{ padding: 10 }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <h6 style={{ margin: 0 }}>Select a delivery address</h6>
-                <Button onClick={()=>handleAddressPanel()} icon="chevron-down"/>
+                <h6>Select a delivery address</h6>
+                <Button onClick={() => setIsAddressPanelOpen(!isAddressPanelOpen)} icon="chevron-down" />
             </div>
+
             <Collapse isOpen={isAddressPanelOpen}>
-                <Divider style={{marginLeft: 0, marginRight: 0}}/>
+                <Divider />
 
                 <RadioGroup
-                    selectedValue={selectedAddress}
-                    onChange={(e) => setSelectedAddress(e.target.value)}
+                    name="delivery-address-radio-group"
+                    selectedValue={selectedAddressId}
+                    onChange={(e) => {
+                        const id = e.target.value;
+                        setSelectedAddressId(id);
+                    }}
                 >
-                    {addresses.map((addr) => (
-                        <div
-                            key={addr.id}
-                            style={{display: 'flex', alignItems: 'flex-start', marginBottom: 10}}
-                        >
-                            <Radio value={addr.id} style={{marginTop: 2}}/>
-                            <div style={{marginLeft: 8}}>
-                                <strong style={{display: 'block', marginBottom: 2}}>{addr.name}</strong>
-                                <span style={{fontSize: "smaller"}}>
-                {addr.address}
-                                    <br/>
-                Phone number: {addr.phone}
-              </span>
-                            </div>
-                        </div>
+                {addresses.map((addr) => (
+                        <Radio key={addr.id} value={addr.id}>
+                            <strong>{addr.name}</strong>
+                            <br />
+                            {addr.addressLine1}
+                            <br />
+                            Phone: {addr.countrycode}{addr.phone}
+                            <p>
+                                <a
+                                    href="#"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        handleEditAddressFunctionality(addr);
+                                    }}
+                                    style={{ color: "blue", textDecoration: "underline", cursor: "pointer" }}
+                                >
+                                    Edit
+                                </a>
+                            </p>
+                        </Radio>
                     ))}
                 </RadioGroup>
-                <p style={{color: "blue"}}>Add a new delivery address</p>
+
+                <p style={{ color: "blue", cursor: "pointer" }}>Add a new delivery address</p>
+
                 <button
-                    style={buttonStyle}
+                    style={{
+                        backgroundColor: "#000",
+                        color: "#fff",
+                        padding: "10px",
+                        width: "100%",
+                        borderRadius: "4px",
+                        marginTop: "15px",
+                        cursor: "pointer",
+                    }}
+                    onClick={handleDeliveryAddressChange}
                 >
                     Deliver to this address
                 </button>
             </Collapse>
-
         </Card>
     );
 };

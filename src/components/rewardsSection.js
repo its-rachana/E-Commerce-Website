@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import {Button, Card, Checkbox, Collapse, Divider, Icon, NumericInput} from "@blueprintjs/core";
 
-const RewardsComponent = () => {
+const RewardsComponent = ({ redeemPointsCheckBoxEnabled, setRedeemPointsCheckboxEnabled,redeemPointsUserInput, setRedeemPointsUserInput }) => {
     const [isRewardPanelOpen, setIsRewardPanelOpen] = useState(false);
-    const [redeemPointsCheckBoxEnabled, setRedeemPointsCheckboxEnabled] = useState(false);
     const [redeemPointsAvailable, setRedeemPointsAvailable] = useState(0);
-    const [redeemPointsUserInput, setRedeemPointsUserInput] = useState(0);
 
     useEffect(() => {
         setRedeemPointsAvailable(48327);
@@ -32,7 +30,6 @@ const RewardsComponent = () => {
     };
     const handleRedeemPoints = () => {
         const newValue = redeemPointsAvailable - redeemPointsUserInput;
-        console.log(newValue)
         setRedeemPointsAvailable(newValue);
     }
 
