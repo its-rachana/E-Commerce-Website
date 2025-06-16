@@ -2,11 +2,48 @@ export async function retrieveSecretKeyFromBackend(){
     const response = await fetch('/retrieveKey', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: 5000 }), // Amount in cents ($50)
+        body: JSON.stringify({ amount: 5000 }),
     })
     return await response.json();
 }
-
+export async function retrievePromoCode(){
+    const response = await fetch('/retrievePromoCodes', {
+        method: 'GET'
+    });
+    return await response.json();
+}
+export async function fetchUserAddresses(email){
+    const response = await fetch('/userAddresses',{
+        method:'GET',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({user_email:email})
+    })
+    return await response.json()
+}
+export async function addUserAddresses(email,address){
+    const response = await fetch('/addUserAddress',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({user_email:email,new_address:address})
+    })
+    return await response.json()
+}
+export async function editUserAddresses(email,address){
+    const response = await fetch('/editUserAddress',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({user_email:email,new_address:address})
+    })
+    return await response.json()
+}
+export async function getRewardPoints(email){
+    const response = await fetch('/getRewardPoints',{
+        method:'GET',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({user_email:email})
+    })
+    return await response.json()
+}
 export async function fetchAllData (){
     const response = await fetch("/fetchAlldata",
         {

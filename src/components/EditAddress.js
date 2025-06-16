@@ -4,9 +4,7 @@ import countries from "../utils/countries.json";
 import countryCodes from "../utils/countryCodes.json";
 
 const EditAddress = ({ onClose, address = {} }) => {
-    useEffect(() => {
-        console.log(address);
-    }, []);
+
     const [fullName, setFullName] = useState(address.name || "");
     const [selectedCountry, setSelectedCountry] = useState(address.country || "");
     const [selectedState, setSelectedState] = useState(address.state || "");
@@ -23,16 +21,11 @@ const EditAddress = ({ onClose, address = {} }) => {
     const states =
         countries.find((c) => c.code2 === selectedCountry)?.states || [];
 
-    // useEffect(() => {
-    //     if (selectedCountry && !states.find(s => s.code === selectedState)) {
-    //         setSelectedState(""); // Reset state if it doesn't match selected country
-    //     }
-    // }, [selectedCountry]);
     useEffect(() => {
         if (address.country) {
             const matchedCountry = countries.find(c => c.name === address.country);
             if (matchedCountry) {
-                setSelectedCountry(matchedCountry.code2); // set the correct code
+                setSelectedCountry(matchedCountry.code2);
                 if (address.state) {
                     const matchedState = matchedCountry.states?.find(s => s.name === address.state || s.code === address.state);
                     if (matchedState) {
@@ -54,8 +47,6 @@ const EditAddress = ({ onClose, address = {} }) => {
             city,
             zipcode
         };
-        console.log("Saved Address:", JSON.stringify(addressObject, null, 2));
-        // You can send addressObject to parent or API
     };
 
     return (

@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react'
-import {Button, Card, Checkbox, Collapse, Divider, Icon, NumericInput} from "@blueprintjs/core";
+import {Button, Card, Checkbox, Collapse, Divider, FormGroup, Icon, Intent, NumericInput} from "@blueprintjs/core";
 
 const RewardsComponent = ({ redeemPointsCheckBoxEnabled, setRedeemPointsCheckboxEnabled,redeemPointsUserInput, setRedeemPointsUserInput }) => {
     const [isRewardPanelOpen, setIsRewardPanelOpen] = useState(false);
     const [redeemPointsAvailable, setRedeemPointsAvailable] = useState(0);
+    const [hasError, setHasError] = useState(false);
 
     useEffect(() => {
         setRedeemPointsAvailable(48327);
@@ -11,11 +12,13 @@ const RewardsComponent = ({ redeemPointsCheckBoxEnabled, setRedeemPointsCheckbox
     const handleRewardPanel = () => {
         setIsRewardPanelOpen(!isRewardPanelOpen);
     }
+
     const handleEnabledChange = () => {
         setRedeemPointsCheckboxEnabled(!redeemPointsCheckBoxEnabled);
     }
+
     const buttonStyle = {
-        backgroundColor: '#000000', // black
+        backgroundColor: '#000000',
         color: '#ffffff',
         border: 'none',
         borderRadius: '4px',
@@ -49,7 +52,22 @@ const RewardsComponent = ({ redeemPointsCheckBoxEnabled, setRedeemPointsCheckbox
                 <Collapse isOpen={redeemPointsCheckBoxEnabled}>
                     How many would you like to redeem for this order?
                     <div>
-                        <NumericInput onValueChange={(newValue) => setRedeemPointsUserInput(newValue)}/>
+                        <FormGroup
+                            label="Redeem Points"
+                            helperText={hasError ? `You can't redeem more than ${redeemPointsAvailable} points.` : undefined}
+                            intent={hasError ? Intent.DANGER : Intent.NONE}
+                        >
+                            <NumericInput
+                                max={redeemPointsAvailable}
+                                min={0}
+                                clampValueOnBlur
+                                allowNumericCharactersOnly
+                                value={redeemPointsUserInput}
+                                onValueChange={(newValue) => {
+                                    setHasError(newValue > redeemPointsAvailable);setRedeemPointsUserInput(newValue)}}
+                                intent={hasError ? Intent.DANGER : Intent.NONE}
+                            />
+                        </FormGroup>
                     </div>
                     <button style={buttonStyle} onClick={handleRedeemPoints}>Redeem points</button>
                 </Collapse>

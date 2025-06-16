@@ -5,7 +5,6 @@ const getFormattedDate = () =>{
     const year = date.getFullYear();
     const month = date.toLocaleString('default', { month: 'long' });
 
-    // Add ordinal suffix
     const getOrdinalSuffix = (n) => {
         if (n > 3 && n < 21) return 'th';
         switch (n % 10) {

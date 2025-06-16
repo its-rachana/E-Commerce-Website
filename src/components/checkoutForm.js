@@ -27,7 +27,7 @@ const CheckoutForm = () => {
     };
 
     const buttonStyle = {
-        backgroundColor: '#000000', // black
+        backgroundColor: '#000000',
         color: '#ffffff',
         border: 'none',
         borderRadius: '4px',
