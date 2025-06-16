@@ -13,10 +13,11 @@ export async function retrievePromoCode(){
     return await response.json();
 }
 export async function fetchUserAddresses(email){
+    console.log("entered trigger api call");
     const response = await fetch('/userAddresses',{
-        method:'GET',
+        method:'POST',
         headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({user_email:email})
+        body: JSON.stringify({email:email})
     })
     return await response.json()
 }

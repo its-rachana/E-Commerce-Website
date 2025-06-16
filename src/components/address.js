@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { Button, Card, Collapse, Divider, Radio, RadioGroup } from "@blueprintjs/core";
 import "@blueprintjs/core/lib/css/blueprint.css";
+import {fetchAllCartItems, fetchUserAddresses} from "@/services/triggerAPI";
 
 const AddressComponent = ({
                               setEditAddress,
@@ -11,35 +12,14 @@ const AddressComponent = ({
                           }) => {
     const [isAddressPanelOpen, setIsAddressPanelOpen] = useState(true);
     const [selectedAddressId,setSelectedAddressId] = useState("");
-    const addresses = [
-        {
-            id: "one",
-            name: "Kavya Angara",
-            addressLine1: "411 Dorsey Ln",
-            dialcode:"+1",
-            state:"KY",
-            code3: "USA",
-            phone: "2345678900",
-            zipcode:"40223",
-            country:"United States",
-            addressLine2:"",
-            city:"Louisville",
-        },
-        {
-            id: "two",
-            name: "Ravi Kumar",
-            addressLine1: "123 Elm St",
-            dialcode:"+1",
-            code3: "USA",
-            phone: "9876543210",
-            zipcode:"85001",
-            country:"United States",
-            state: "AZ",
-            addressLine2:"",
-            city:"Phoenix"
-        },
-    ];
-
+    const [addresses,setAddresses] = useState([])
+    useEffect(()=>{
+        const fetchAddresses = async () => {
+            const data = await fetchUserAddresses("kavyaangara5@gmail.com");
+            setAddresses(data);
+        }
+        fetchAddresses();
+    },[])
     const handleDeliveryAddressChange = () => {
         if (selectedAddressId) {
             const selectedAddressObj = addresses.find((addr) => addr.id === selectedAddressId);

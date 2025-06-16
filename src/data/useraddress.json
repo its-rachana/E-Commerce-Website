@@ -1,0 +1,92 @@
+[
+  {
+    "id": "1",
+    "email": "kavyaangara5@gmail.com",
+    "addressList": [
+      {
+        "name": "Kavya Angara",
+        "addressLine1": "411 Dorsey Ln",
+        "dialcode": "+1",
+        "state": "KY",
+        "code3": "USA",
+        "phone": "2345678900",
+        "zipcode": "40223",
+        "country": "United States",
+        "addressLine2": "",
+        "city": "Louisville"
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "email": "rohit.verma91@example.com",
+    "addressList": [
+      {
+        "name": "Rohit Verma",
+        "addressLine1": "512 Main St",
+        "dialcode": "+1",
+        "state": "CA",
+        "code3": "USA",
+        "phone": "3105551234",
+        "zipcode": "90017",
+        "country": "United States",
+        "addressLine2": "Apt 204",
+        "city": "Los Angeles"
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "email": "sara.mitchell24@example.com",
+    "addressList": [
+      {
+        "name": "Sara Mitchell",
+        "addressLine1": "98 Elmwood Ave",
+        "dialcode": "+1",
+        "state": "NY",
+        "code3": "USA",
+        "phone": "2127893456",
+        "zipcode": "10011",
+        "country": "United States",
+        "addressLine2": "",
+        "city": "New York"
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "email": "ankitsharma22@example.com",
+    "addressList": [
+      {
+        "name": "Ankit Sharma",
+        "addressLine1": "200 Maple Drive",
+        "dialcode": "+1",
+        "state": "TX",
+        "code3": "USA",
+        "phone": "4692237789",
+        "zipcode": "75001",
+        "country": "United States",
+        "addressLine2": "Suite 12B",
+        "city": "Dallas"
+      }
+    ]
+  },
+  {
+    "id": "5",
+    "email": "emilyr92@example.com",
+    "addressList": [
+      {
+        "name": "Emily Rodriguez",
+        "addressLine1": "123 Beachside Blvd",
+        "dialcode": "+1",
+        "state": "FL",
+        "code3": "USA",
+        "phone": "7863456789",
+        "zipcode": "33139",
+        "country": "United States",
+        "addressLine2": "Unit 3C",
+        "city": "Miami"
+      }
+    ]
+  }
+]

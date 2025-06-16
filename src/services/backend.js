@@ -21,9 +21,11 @@ async function initializeServer() {
         const client = new MongoClient(connectionParameters.url);
         await client.connect();
         const db = client.db("karini_assessment");
+        const userDb = client.db("user_auth_db");
+
         const collection = db.collection("all_products");
         const cartCollection = db.collection("cart");
-
+        const userAddressesCollection = userDb.collection("user_address");
         app.post('/retrieveKey', async (req, res) => {
             const { amount } = req.body;
 
@@ -38,6 +40,35 @@ async function initializeServer() {
                 res.status(500).send({ error: err.message });
             }
         });
+        //API calls for user data retrieval
+        app.post('/userAddresses', async (req, res) => {
+            console.log("Request received at /userAddresses");
+
+            try {
+                const { email } = req.body;
+                console.log("Email received:", email);
+
+                if (!email) {
+                    console.log("No email provided");
+                    return res.status(400).json({ error: "Email is required" });
+                }
+
+                const user = await userAddressesCollection.findOne({ email: email });
+
+                if (!user) {
+                    console.log("User not found in DB");
+                    return res.status(404).json({ error: "User not found" });
+                }
+
+                console.log("User found:", user);
+                return res.json(user.addressList || []);
+            } catch (err) {
+                console.error("Error occurred while fetching addresses:", err);
+                return res.status(500).json({ error: "Failed to fetch address list" });
+            }
+        });
+
+
         app.get("/fetchAlldata", async (req, res) => {
             try {
                 const data = await collection.find({}).toArray();

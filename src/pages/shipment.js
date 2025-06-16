@@ -70,7 +70,6 @@ export default function shipment() {
 
     return (
         <div>
-            <Header/>
             <div className="container mt-4">
                 <div>
                     {isEditAddressPopupOpen && <EditAddress
