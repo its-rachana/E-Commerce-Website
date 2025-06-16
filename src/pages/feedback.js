@@ -27,7 +27,7 @@ export default function Feedback() {
       const data = await response.json();
 
       if (response.ok) {
-        router.push("/thankyoupage"); // assuming you have this route
+        console.log("All Done")
       } else {
         setError(data.error || "Submission failed.");
       }
