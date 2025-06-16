@@ -61,7 +61,8 @@ export async function clearAllCartItems (){
     )
     return await response.json();
 }
-export async function fetchSpecificData(searchQuery){
+export async function fetchSpecificData(searchQuery)
+{
     const response = await fetch('/searchInAllItems',{
         method:"POST",
         headers:{
@@ -96,4 +97,22 @@ export async function fetchAllCartItems () {
         method:"GET"
     })
     return response.json()
+}
+
+export async function registerUser(name, email, password) {
+    const response = await fetch("/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password })
+    });
+    return await response.json();
+}
+
+export async function loginUser(email, password) {
+    const response = await fetch("/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
+    });
+    return await response.json();
 }
