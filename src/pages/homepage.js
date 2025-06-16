@@ -11,6 +11,7 @@ import {
 } from "@/services/triggerAPI";
 import {useState,useEffect} from "react";
 import {useRouter} from "next/navigation";
+import Header from "@/components/header";
 
 function Home (){
     const router = useRouter();
@@ -55,8 +56,9 @@ function Home (){
     }
     return (
         <div>
+            <Header/>
 
-                <div className="container mt-4">
+            <div className="container mt-4">
                     <div className="bp5-input-group">
                         <span className="bp5-icon bp5-icon-search"></span>
                         <input
