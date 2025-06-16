@@ -30,7 +30,8 @@ function Home (){
         fetchData();
     },[])
 
-    const handleSearch = async(searchQuery) =>{
+    const handleSearch = async(searchQuery) =>
+    {
         const data = await fetchSpecificData(searchQuery);
         setDisplayItems(data);
     }
